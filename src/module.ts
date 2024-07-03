@@ -33,9 +33,16 @@ export default defineNuxtModule<ModuleOptions>({
       maxFiles: "14d",
       infoLogPath: `./logs`,
       infoLogName: `%DATE%-${process.env.NODE_ENV}-info.log`,
+      warnLogPath: `./logs`,
+      warnLogName: `%DATE%-${process.env.NODE_ENV}-warn.log`,
+      debugLogPath: `./logs`,
+      debugLogName: `%DATE%-${process.env.NODE_ENV}-debug.log`,
       errorLogPath: `./logs`,
       errorLogName: `%DATE%-${process.env.NODE_ENV}-error.log`,
       skipRequestMiddlewareHandler: false,
+      singleLogPath: null,
+      singleLogName: null,
+      datePattern: "YYYY-MM-DD",
     };
     const mergeOptions = {
       maxSize: judgeIfStatus(options?.maxSize)
@@ -50,6 +57,18 @@ export default defineNuxtModule<ModuleOptions>({
       infoLogName: judgeIfStatus(options?.infoLogName)
         ? options.infoLogName
         : defaultOptions.infoLogName,
+      warnLogPath: judgeIfStatus(options?.warnLogPath)
+        ? options.warnLogPath
+        : defaultOptions.warnLogPath,
+      warnLogName: judgeIfStatus(options?.warnLogName)
+        ? options.warnLogName
+        : defaultOptions.warnLogName,
+      debugLogPath: judgeIfStatus(options?.debugLogPath)
+        ? options.debugLogPath
+        : defaultOptions.debugLogPath,
+      debugLogName: judgeIfStatus(options?.debugLogName)
+        ? options.debugLogName
+        : defaultOptions.debugLogName,
       errorLogPath: judgeIfStatus(options?.errorLogPath)
         ? options.errorLogPath
         : defaultOptions.errorLogPath,
@@ -61,6 +80,15 @@ export default defineNuxtModule<ModuleOptions>({
       )
         ? options.skipRequestMiddlewareHandler
         : defaultOptions.skipRequestMiddlewareHandler,
+      singleLogPath: judgeIfStatus(options?.singleLogPath)
+        ? options.singleLogPath
+        : defaultOptions.singleLogPath,
+      singleLogName: judgeIfStatus(options?.singleLogName)
+        ? options.singleLogName
+        : defaultOptions.singleLogName,
+      datePattern: judgeIfStatus(options?.datePattern)
+        ? options.datePattern
+        : defaultOptions.datePattern,
     };
     nuxt.options.runtimeConfig.public.nuxt3WinstonLog = mergeOptions;
     const resolver = createResolver(import.meta.url);

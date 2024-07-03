@@ -1,5 +1,5 @@
 <template>
-  <div>single log file</div>
+  <div>single</div>
 </template>
 
 <script setup>
