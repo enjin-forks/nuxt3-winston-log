@@ -1,5 +1,6 @@
 import { defineNuxtModule, addPlugin, createResolver } from "@nuxt/kit";
-function judgeIfStatus(params: any) {
+
+function judgeIfStatus(params: any): boolean {
   if (!params) {
     return false;
   }
@@ -31,18 +32,19 @@ export default defineNuxtModule<ModuleOptions>({
     const defaultOptions = {
       maxSize: "1024m",
       maxFiles: "14d",
+      debugLogPath: `./logs`,
+      debugLogName: `%DATE%-${process.env.NODE_ENV}-debug.log`,
       infoLogPath: `./logs`,
       infoLogName: `%DATE%-${process.env.NODE_ENV}-info.log`,
       warnLogPath: `./logs`,
       warnLogName: `%DATE%-${process.env.NODE_ENV}-warn.log`,
-      debugLogPath: `./logs`,
-      debugLogName: `%DATE%-${process.env.NODE_ENV}-debug.log`,
       errorLogPath: `./logs`,
       errorLogName: `%DATE%-${process.env.NODE_ENV}-error.log`,
       skipRequestMiddlewareHandler: false,
       singleLogPath: null,
       singleLogName: null,
       datePattern: "YYYY-MM-DD",
+      level: 'info',
     };
     const mergeOptions = {
       maxSize: judgeIfStatus(options?.maxSize)
@@ -51,6 +53,12 @@ export default defineNuxtModule<ModuleOptions>({
       maxFiles: judgeIfStatus(options?.maxFiles)
         ? options.maxFiles
         : defaultOptions.maxFiles,
+      debugLogPath: judgeIfStatus(options?.debugLogPath)
+        ? options.debugLogPath
+        : defaultOptions.debugLogPath,
+      debugLogName: judgeIfStatus(options?.debugLogName)
+        ? options.debugLogName
+        : defaultOptions.debugLogName,
       infoLogPath: judgeIfStatus(options?.infoLogPath)
         ? options.infoLogPath
         : defaultOptions.infoLogPath,
@@ -63,12 +71,6 @@ export default defineNuxtModule<ModuleOptions>({
       warnLogName: judgeIfStatus(options?.warnLogName)
         ? options.warnLogName
         : defaultOptions.warnLogName,
-      debugLogPath: judgeIfStatus(options?.debugLogPath)
-        ? options.debugLogPath
-        : defaultOptions.debugLogPath,
-      debugLogName: judgeIfStatus(options?.debugLogName)
-        ? options.debugLogName
-        : defaultOptions.debugLogName,
       errorLogPath: judgeIfStatus(options?.errorLogPath)
         ? options.errorLogPath
         : defaultOptions.errorLogPath,
@@ -89,6 +91,9 @@ export default defineNuxtModule<ModuleOptions>({
       datePattern: judgeIfStatus(options?.datePattern)
         ? options.datePattern
         : defaultOptions.datePattern,
+      level: judgeIfStatus(options?.level)
+        ? options.level
+        : defaultOptions.level,
     };
     nuxt.options.runtimeConfig.public.nuxt3WinstonLog = mergeOptions;
     const resolver = createResolver(import.meta.url);

@@ -1,6 +1,6 @@
 {
   "name": "nuxt3-winston-log",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "nuxt3-winston-log",
   "keywords": [
     "nuxt",
@@ -9,8 +9,8 @@
     "winston",
     "nuxt3-winston-log"
   ],
-  "author": "clark",
-  "repository": "https://github.com/huyujienice/nuxt3-winston-log.git",
+  "authors": ["clark", "enjin"],
+  "repository": "https://github.com/enjin-forks/nuxt3-winston-log.git",
   "license": "MIT",
   "type": "module",
   "exports": {

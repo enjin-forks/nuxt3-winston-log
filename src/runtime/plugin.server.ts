@@ -8,10 +8,16 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     const options = nuxtApp.$config.public.nuxt3WinstonLog;
     const globalLogger = getLogger(options);
+    const originDebug = console.debug;
     const originLog = console.log;
     const originWarn = console.warn;
-    const originDebug = console.debug;
     const originError = console.error;
+
+    console.debug = function (...rest) {
+      const str = rest.join(" ");
+      globalLogger.debug(str);
+      originDebug.apply(this, rest);
+    };
 
     console.log = function (...rest) {
       const str = rest.join(" ");
@@ -23,12 +29,6 @@ export default defineNuxtPlugin((nuxtApp) => {
       const str = rest.join(" ");
       globalLogger.warn(str);
       originWarn.apply(this, rest);
-    };
-
-    console.debug = function (...rest) {
-      const str = rest.join(" ");
-      globalLogger.debug(str);
-      originDebug.apply(this, rest);
     };
 
     console.error = function (...rest) {
